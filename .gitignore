@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+*.log
+
+# Editor
+.vscode/
+.idea/
+
+# Claude local state
+.claude/
+
+# Node / Next (web/ also has its own .gitignore)
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Env files (never commit secrets)
+.env
+.env.*
+!.env.example

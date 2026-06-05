@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — editorial, authoritative, warm */
+  --color-ink: #0c0d10; /* near-black background */
+  --color-ink-soft: #14161c; /* raised panels */
+  --color-ink-line: #262a33; /* hairline borders */
+  --color-cream: #f4efe4; /* warm off-white text */
+  --color-muted: #9b968b; /* secondary text */
+  --color-gold: #d8a949; /* primary accent */
+  --color-gold-soft: #b78a33; /* accent hover */
+  --color-ember: #c8432c; /* "live" red */
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, "Times New Roman",
+    serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Subtle pulsing dot for the LIVE badge */
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.live-dot {
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
