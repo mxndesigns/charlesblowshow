@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lunch Break Live — Segment Playbook · The Charles Blow Show</title>
+<style>
+  :root{
+    --ink:#141210;
+    --paper:#f6f1e7;
+    --paper-2:#efe7d6;
+    --crimson:#b51a1a;
+    --crimson-dk:#8c1212;
+    --gold:#c9912f;
+    --slate:#2b2622;
+    --muted:#6f655a;
+    --line:#ddd1bb;
+    --good:#2f7d4f;
+    --blue:#1f5f8b;
+    --rule:#1a1714;
+    --shadow:0 10px 34px rgba(20,18,16,.16);
+    --font-d:"Georgia","Times New Roman",serif;
+    --font-s:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--font-s);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--crimson);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* ---------- Masthead ---------- */
+  header.mast{
+    background:var(--ink);color:var(--paper);
+    border-bottom:5px double var(--gold);
+  }
+  .mast-inner{max-width:1080px;margin:0 auto;padding:30px 22px 26px}
+  .kicker{
+    font-family:var(--font-s);letter-spacing:.32em;text-transform:uppercase;
+    font-size:11px;color:var(--gold);font-weight:700;margin-bottom:10px;
+  }
+  .mast h1{
+    font-family:var(--font-d);font-weight:800;line-height:1.02;
+    margin:0 0 8px;font-size:clamp(34px,6vw,62px);letter-spacing:-.5px;
+  }
+  .mast h1 .live{color:var(--crimson)}
+  .mast .dek{font-size:clamp(15px,2.2vw,19px);color:#e7ddca;max-width:760px;font-style:italic;font-family:var(--font-d)}
+  .mast .meta{margin-top:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#b7ac98}
+
+  /* ---------- Nav ---------- */
+  nav.toc{position:sticky;top:0;z-index:40;background:rgba(20,18,16,.96);backdrop-filter:blur(6px);
+    border-bottom:1px solid #332d27;}
+  nav.toc .wrap{display:flex;gap:4px;flex-wrap:wrap;padding:9px 22px}
+  nav.toc a{color:#d8cdb8;font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:6px;letter-spacing:.02em}
+  nav.toc a:hover{background:#2a2520;color:#fff;text-decoration:none}
+
+  section{padding:54px 0 10px}
+  section.alt{background:var(--paper-2)}
+  .eyebrow{display:inline-block;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--crimson);font-weight:800;margin-bottom:10px}
+  h2{font-family:var(--font-d);font-size:clamp(26px,4vw,38px);margin:.1em 0 .35em;line-height:1.08;letter-spacing:-.4px}
+  h3{font-family:var(--font-d);font-size:21px;margin:1.4em 0 .4em}
+  h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);margin:1.2em 0 .4em}
+  p{margin:.5em 0}
+  .lead{font-size:18px;color:var(--slate);max-width:760px}
+  .muted{color:var(--muted)}
+
+  /* ---------- Cards & grids ---------- */
+  .grid{display:grid;gap:18px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 20px;box-shadow:var(--shadow)}
+  .card.tight{padding:16px 18px}
+  .card h3{margin-top:.1em}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    padding:3px 9px;border-radius:999px;background:var(--paper-2);color:var(--slate);border:1px solid var(--line)}
+  .pill.red{background:#fbe9e9;color:var(--crimson-dk);border-color:#f0caca}
+  .pill.gold{background:#fbf1da;color:#8a6311;border-color:#eddcb4}
+  .pill.blue{background:#e6f0f7;color:var(--blue);border-color:#cfe1ee}
+  .pill.green{background:#e7f3ec;color:var(--good);border-color:#cae6d5}
+
+  /* ---------- Anatomy timeline ---------- */
+  .beat{display:grid;grid-template-columns:88px 1fr;gap:16px;border-left:3px solid var(--crimson);
+    padding:12px 0 12px 18px;margin-left:6px}
+  .beat .t{font-family:var(--font-d);font-weight:800;font-size:19px;color:var(--crimson)}
+  .beat .t small{display:block;font-family:var(--font-s);font-weight:600;font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  .beat b{font-size:15px}
+
+  ul.clean{list-style:none;padding:0;margin:.4em 0}
+  ul.clean li{padding:7px 0 7px 26px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:0}
+  ul.clean li::before{content:"›";position:absolute;left:6px;top:6px;color:var(--crimson);font-weight:800}
+  ul.check li::before{content:"✓";color:var(--good)}
+
+  /* ---------- Platform cards ---------- */
+  .plat{border-top:4px solid var(--ink)}
+  .plat.li{border-top-color:#0a66c2}
+  .plat.ig{border-top-color:#c13584}
+  .plat.yt{border-top-color:#c4302b}
+  .plat .head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .plat .logo{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-family:var(--font-s);font-size:13px}
+  .li .logo{background:#0a66c2}.ig .logo{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}.yt .logo{background:#c4302b}
+
+  /* ---------- Post mockups ---------- */
+  .post{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .post .pbar{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;font-size:13px}
+  .post .av{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--gold);display:grid;place-items:center;font-weight:800;font-family:var(--font-d)}
+  .post .body{padding:14px;font-size:14.5px;white-space:pre-wrap}
+  .post .tag{color:var(--blue);font-weight:600}
+  .copybtn{float:right;font-size:11px;border:1px solid var(--line);background:var(--paper);color:var(--slate);
+    padding:4px 9px;border-radius:6px;cursor:pointer;font-weight:700;letter-spacing:.03em}
+  .copybtn:hover{background:var(--ink);color:#fff}
+
+  /* ---------- Funnel ---------- */
+  .funnel{display:grid;gap:8px}
+  .frow{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center}
+  .fbar{height:40px;border-radius:8px;display:flex;align-items:center;padding:0 14px;color:#fff;font-weight:700;font-size:13px}
+  @media(max-width:680px){.frow{grid-template-columns:1fr}}
+
+  /* ---------- Gantt ---------- */
+  .gantt-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 16px}
+  .gbtn{font-size:12px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--slate);
+    padding:6px 12px;border-radius:999px;cursor:pointer;letter-spacing:.02em;display:inline-flex;align-items:center;gap:6px}
+  .gbtn .dot{width:10px;height:10px;border-radius:50%}
+  .gbtn.active{color:#fff;border-color:transparent}
+  .gantt-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}
+  table.gantt{border-collapse:collapse;width:100%;min-width:920px;font-size:12.5px}
+  table.gantt th,table.gantt td{border-bottom:1px solid #eee5d3}
+  table.gantt thead th{position:sticky;top:0;background:var(--ink);color:var(--paper);font-weight:600;
+    padding:8px 4px;font-size:11px;letter-spacing:.03em}
+  table.gantt thead th.mname{text-transform:uppercase;letter-spacing:.12em;color:var(--gold)}
+  .glabel{padding:7px 12px;font-weight:600;color:var(--slate);white-space:nowrap;border-right:2px solid var(--line);
+    position:sticky;left:0;background:#fff;z-index:2;min-width:230px}
+  .gtrack-h{background:var(--paper-2);font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--ink);padding:8px 12px}
+  .gcell{padding:0;height:34px;position:relative}
+  .gbar{position:absolute;top:6px;height:22px;border-radius:6px;color:#fff;font-size:10.5px;font-weight:700;
+    display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.18);cursor:default}
+  .gbar:hover{filter:brightness(1.08);z-index:5;overflow:visible}
+  .wk-tick{font-size:9px;color:var(--muted)}
+  .legend-note{font-size:12px;color:var(--muted);margin-top:10px}
+
+  /* ---------- Agent schedule ---------- */
+  .clock{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  @media(max-width:860px){.clock{grid-template-columns:repeat(2,1fr)}}
+  .slot{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center;box-shadow:var(--shadow)}
+  .slot .hr{font-family:var(--font-d);font-weight:800;font-size:22px;color:var(--crimson)}
+  .slot .nm{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);font-weight:700;margin:4px 0}
+  .slot .ds{font-size:12px;color:var(--muted)}
+
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+  @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px;position:relative;box-shadow:var(--shadow)}
+  .step .n{font-family:var(--font-d);font-weight:800;color:var(--gold);font-size:15px}
+  .step b{display:block;margin:3px 0 4px;font-size:14px}
+  .step p{font-size:12.5px;color:var(--muted);margin:0}
+
+  .stack{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .stack th,.stack td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+  .stack th{background:var(--paper-2);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+  .stack tr:last-child td{border-bottom:0}
+
+  blockquote{margin:1.2em 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fff;
+    font-family:var(--font-d);font-style:italic;font-size:17px;color:var(--slate);border-radius:0 10px 10px 0;box-shadow:var(--shadow)}
+
+  .callout{background:var(--ink);color:var(--paper);border-radius:14px;padding:26px;box-shadow:var(--shadow)}
+  .callout h3{color:#fff;margin-top:0}
+  .callout .pill{background:#2a2520;color:var(--gold);border-color:#3a332b}
+
+  footer{background:var(--ink);color:#b7ac98;padding:34px 0;margin-top:50px;border-top:5px double var(--gold);font-size:13px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--ink);color:#fff;
+    padding:11px 20px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;transition:.3s;z-index:99;box-shadow:var(--shadow)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .disclaimer{font-size:12px;color:var(--muted);font-style:italic;border-top:1px solid var(--line);padding-top:14px;margin-top:30px}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="mast-inner">
+    <div class="kicker">The Charles Blow Show · Segment Playbook · Working Draft</div>
+    <h1>Lunch Break <span class="live">Live</span></h1>
+    <p class="dek">A tight, 10-minute live segment offering my immediate read on the day's biggest story.</p>
+    <div class="meta">Concept · Marketing · 6-Month Roadmap · AI Research Agent &nbsp;|&nbsp; Prepared June 2026</div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#concept">Concept</a>
+    <a href="#anatomy">Anatomy</a>
+    <a href="#marketing">Marketing</a>
+    <a href="#posts">Launch Posts</a>
+    <a href="#signup">Sign-Ups</a>
+    <a href="#roadmap">6-Mo Gantt</a>
+    <a href="#agent">AI Agent</a>
+  </div>
+</nav>
+
+<!-- ===================== CONCEPT ===================== -->
+<section id="concept">
+  <div class="wrap">
+    <span class="eyebrow">The Segment</span>
+    <h2>What "Lunch Break Live" actually is</h2>
+    <p class="lead">A daily appointment at noon. When the news is still forming and everyone else is waiting for the official take, you go live for ten minutes and tell people what it <em>means</em> — fast, unfiltered, and in your voice. It's the column delivered live, before the column exists.</p>
+
+    <div class="grid g3" style="margin-top:26px">
+      <div class="card">
+        <span class="pill red">The Promise</span>
+        <h3>Ten minutes, one story, your read</h3>
+        <p class="muted">No panel, no teleprompter dance. One story that's driving the day, explained and interpreted by you while it's still hot. Viewers leave knowing what happened and what to think about it.</p>
+      </div>
+      <div class="card">
+        <span class="pill gold">The Slot</span>
+        <h3>Noon, every weekday</h3>
+        <p class="muted">It lives in the lunch hour on purpose — the natural mid-day check-in. People eat, you talk, they get the day's biggest story sorted before they head back in. Predictable, ritual, must-not-miss.</p>
+      </div>
+      <div class="card">
+        <span class="pill blue">The Edge</span>
+        <h3>Immediacy over polish</h3>
+        <p class="muted">The value is speed plus judgment. Cable spends a day deciding the frame; you set the frame at noon. Being early and being <em>right about what matters</em> is the whole brand.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px">Why it works</h3>
+    <div class="grid g2">
+      <ul class="clean">
+        <li><b>Appointment habit.</b> A fixed daily time turns occasional viewers into a returning audience — the single hardest thing to build online.</li>
+        <li><b>Low production cost, high frequency.</b> Ten live minutes is cheap to make daily, and frequency is what algorithms and habits both reward.</li>
+        <li><b>Repurposing engine.</b> Every live becomes 3–5 clips, a newsletter blurb, and an audio cut. One shoot, a week of feed.</li>
+      </ul>
+      <ul class="clean">
+        <li><b>Distinct voice in a crowded field.</b> The market is full of "here's the news." Almost no one offers "here's my immediate, opinionated read, live, at a set time."</li>
+        <li><b>Direct relationship.</b> Live chat, questions, and reactions build a community that belongs to you — not rented from a network.</li>
+        <li><b>Monetizable.</b> Memberships, a paid Q&A tier, sponsorship of a named recurring slot, and a newsletter all hang off this spine.</li>
+      </ul>
+    </div>
+
+    <blockquote>The bet: people don't just want to know what happened at lunch — they want to know what it <em>means</em> before the afternoon news cycle tells them. Lunch Break Live owns that ten-minute window.</blockquote>
+  </div>
+</section>
+
+<!-- ===================== ANATOMY ===================== -->
+<section id="anatomy" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Run of Show</span>
+    <h2>Anatomy of the ten minutes</h2>
+    <p class="lead">A repeatable structure viewers learn to expect. Same beats every day; only the story changes. Consistency is the format.</p>
+
+    <div style="margin-top:24px">
+      <div class="beat"><div class="t">0:00<small>Cold open</small></div><div><b>The hook — one sentence.</b> Open straight into the story, no throat-clearing. "Here's the one thing you need to understand about today." A standing on-screen lower-third and the same 3-second audio sting build instant recognition.</div></div>
+      <div class="beat"><div class="t">0:30<small>The facts</small></div><div><b>What actually happened.</b> 90 seconds of clean, sourced summary — the who/what/when, stripped of spin, so everyone's on the same page before the opinion lands.</div></div>
+      <div class="beat"><div class="t">2:00<small>The read</small></div><div><b>Your interpretation — the core.</b> 4–5 minutes of "here's what it means and why it matters." The part no one else delivers at noon. Bring the column-writer's framing to a live moment.</div></div>
+      <div class="beat"><div class="t">7:00<small>The pushback</small></div><div><b>Steelman the other side.</b> 60–90 seconds acknowledging the strongest counter-argument and answering it. This is what earns trust and separates you from a hot-take feed.</div></div>
+      <div class="beat"><div class="t">8:30<small>Live Q&A</small></div><div><b>One or two questions from chat.</b> Pull a sharp question from the live audience. Makes viewers feel seen and rewards showing up live versus watching the replay.</div></div>
+      <div class="beat"><div class="t">9:30<small>The close</small></div><div><b>The takeaway + the ask.</b> One memorable closing line (clip bait), then a single clear CTA: subscribe / join the newsletter / be here tomorrow at noon.</div></div>
+    </div>
+
+    <div class="grid g3" style="margin-top:30px">
+      <div class="card tight"><h4>Recurring signatures</h4><ul class="clean"><li>Same cold-open line family</li><li>Standing title card + sting</li><li>"The Read" name-checked daily</li><li>A weekly recurring rubric (see roadmap)</li></ul></div>
+      <div class="card tight"><h4>Minimum kit</h4><ul class="clean"><li>One good camera + key light</li><li>USB or lav mic (audio &gt; video)</li><li>Streaming tool (StreamYard / Ecamm / OBS)</li><li>Lower-third + countdown overlay</li></ul></div>
+      <div class="card tight"><h4>Daily prep loop</h4><ul class="clean"><li>AI agent surfaces top story by 11:15</li><li>15-min outline: facts, read, counter</li><li>Go live 12:00, off by 12:10</li><li>Clips cut & scheduled by 1:30</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MARKETING ===================== -->
+<section id="marketing">
+  <div class="wrap">
+    <span class="eyebrow">Go-To-Market</span>
+    <h2>What the launch feels like across all three platforms</h2>
+    <p class="lead">Even weight on LinkedIn, Instagram, and YouTube — but the same story told three ways. YouTube is the home of the live and the archive; Instagram is the reach and personality engine; LinkedIn is the credibility and conversation layer. One segment, three on-ramps.</p>
+
+    <div class="grid g3" style="margin-top:26px">
+      <!-- LinkedIn -->
+      <div class="card plat li">
+        <div class="head"><div class="logo">in</div><div><b>LinkedIn</b><br><span class="muted" style="font-size:12px">Credibility &amp; conversation</span></div></div>
+        <p class="muted"><b>The feel:</b> serious, civic, "you're in the room with someone who thinks for a living." This is where the read becomes a discussion among engaged professionals.</p>
+        <h4>Cadence</h4>
+        <ul class="clean">
+          <li>Daily text post: the day's takeaway in 3–5 lines + the clip</li>
+          <li>1–2 long-form articles/week expanding a segment into a column</li>
+          <li>Reply to every substantive comment for the first 30 days</li>
+        </ul>
+        <h4>Launch beat</h4>
+        <p class="muted">A founding "why I'm doing this" essay pinned to your profile, plus a countdown series in the two weeks before episode one.</p>
+      </div>
+      <!-- Instagram -->
+      <div class="card plat ig">
+        <div class="head"><div class="logo">IG</div><div><b>Instagram</b><br><span class="muted" style="font-size:12px">Reach &amp; personality</span></div></div>
+        <p class="muted"><b>The feel:</b> immediate, human, face-forward. The discovery surface — Reels do the reach, Stories do the daily ritual, the grid is the brand.</p>
+        <h4>Cadence</h4>
+        <ul class="clean">
+          <li>1–2 Reels/day from the live (the closing line + the sharpest 30s)</li>
+          <li>Daily Story: "Live at noon — today's story is ___" + countdown sticker</li>
+          <li>Go Live natively to mirror the segment for IG-first viewers</li>
+        </ul>
+        <h4>Launch beat</h4>
+        <p class="muted">A teaser Reel trilogy ("something's coming at noon"), a launch-day countdown, and a pinned grid of the first week's best moments.</p>
+      </div>
+      <!-- YouTube -->
+      <div class="card plat yt">
+        <div class="head"><div class="logo">▶</div><div><b>YouTube</b><br><span class="muted" style="font-size:12px">Home base &amp; archive</span></div></div>
+        <p class="muted"><b>The feel:</b> the destination. The live happens here, the full replay lives here, and Shorts feed discovery back into it. This is the searchable, evergreen spine.</p>
+        <h4>Cadence</h4>
+        <ul class="clean">
+          <li>The live stream itself, noon daily, auto-archived</li>
+          <li>3–5 Shorts/day cut from the segment</li>
+          <li>Optional weekly "best of the week" long-form recap</li>
+        </ul>
+        <h4>Launch beat</h4>
+        <p class="muted">A 60–90s channel trailer, a scheduled "Premiere" for episode one to concentrate the live audience, and Community-tab polls to pick early topics.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px">The launch arc — how it should feel week to week</h3>
+    <div class="grid g4">
+      <div class="card tight"><span class="pill">Phase 1 · Tease</span><p class="muted" style="margin-top:8px">Mystery and anticipation. "Something arrives at noon." Cryptic Reels, a countdown, a founding essay. No full reveal yet.</p></div>
+      <div class="card tight"><span class="pill red">Phase 2 · Reveal</span><p class="muted" style="margin-top:8px">Name, time, promise, and trailer drop across all three at once. Pin everything. Open the sign-up. Ask for the calendar add.</p></div>
+      <div class="card tight"><span class="pill gold">Phase 3 · Launch week</span><p class="muted" style="margin-top:8px">Five episodes, five days. Heavy clipping, daily Stories, reply to everything. Treat week one like an event, not a routine.</p></div>
+      <div class="card tight"><span class="pill green">Phase 4 · Sustain</span><p class="muted" style="margin-top:8px">Settle into the daily rhythm. Let data pick winning formats. Introduce the weekly rubric and the membership ask.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:30px">
+      <h3>One rule that ties it together</h3>
+      <p style="color:#e7ddca">Film once, distribute everywhere — but never cross-post identically. The same ten minutes becomes a LinkedIn argument, an Instagram moment, and a YouTube archive. <span class="pill">Native formatting per platform</span> <span class="pill">Same voice everywhere</span> <span class="pill">Every post points back to noon</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LAUNCH POSTS ===================== -->
+<section id="posts" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Copy You Can Ship</span>
+    <h2>The social post launching this</h2>
+    <p class="lead">Three platform-native versions of the announcement, same message. Click <b>Copy</b> on any of them.</p>
+
+    <div class="grid g2" style="margin-top:22px">
+      <div class="post">
+        <div class="pbar"><div class="av">in</div><b>LinkedIn</b><span class="muted">· Announcement</span><button class="copybtn" data-c="li1">Copy</button></div>
+        <div class="body" id="li1">Starting Monday, I'm doing something new — and a little terrifying.
+
+It's called <b>Lunch Break Live</b>: a tight, 10-minute live segment, every weekday at noon, where I give you my immediate read on the day's biggest story.
+
+Not the polished take three days later. The real-time one — what happened, what it means, and why it matters — while it's still happening.
+
+No panel. No spin. Ten minutes, one story, straight from me.
+
+I've spent my career writing about this country after the dust settles. This is me showing up before it does.
+
+🔔 First episode Monday at 12:00 PM ET.
+Follow along + get the daily heads-up 👉 [link]
+
+What story should I break down first? Tell me below. ⬇️</div>
+      </div>
+
+      <div class="post">
+        <div class="pbar"><div class="av">IG</div><b>Instagram</b><span class="muted">· Reel caption</span><button class="copybtn" data-c="ig1">Copy</button></div>
+        <div class="body" id="ig1">New ritual starts Monday. 🕛
+
+LUNCH BREAK LIVE — 10 minutes, every weekday at noon. The day's biggest story, my immediate read, live.
+
+You eat. I'll make sense of the news. Back to your day by 12:10.
+
+See you at noon. Turn on notifications so you don't miss the first one. 🔔
+
+<span class="tag">#LunchBreakLive #CharlesBlow #news #politics #thedailyread #goinglive</span></div>
+      </div>
+
+      <div class="post">
+        <div class="pbar"><div class="av">▶</div><b>YouTube</b><span class="muted">· Community + trailer description</span><button class="copybtn" data-c="yt1">Copy</button></div>
+        <div class="body" id="yt1">▶ LUNCH BREAK LIVE — premieres Monday, 12:00 PM ET
+
+Every weekday at noon, I go live for 10 minutes with my immediate read on the day's biggest story. What happened, what it means, and the part nobody else is saying yet.
+
+One story. Ten minutes. No teleprompter, no panel — just the read.
+
+🔔 Hit subscribe and set the reminder for Monday's premiere.
+💬 Drop the first story you want me to break down in the comments.
+
+New episode every weekday. Be here at noon.</div>
+      </div>
+
+      <div class="post">
+        <div class="pbar"><div class="av">IG</div><b>Instagram</b><span class="muted">· Story countdown (text)</span><button class="copybtn" data-c="ig2">Copy</button></div>
+        <div class="body" id="ig2">⏳ 3 days out.
+
+Something new arrives at noon on Monday.
+10 minutes. The day's biggest story. My take, live.
+
+Tap the countdown so you're reminded 👆
+Tap "Sign up" so you never miss one 👆
+
+#LunchBreakLive</div>
+      </div>
+    </div>
+
+    <p class="muted" style="margin-top:18px;font-size:13px"><b>Tip:</b> Post the LinkedIn essay and YouTube trailer first (they're searchable and pinnable), then run the Instagram teasers in the final 72 hours to spike anticipation right before launch.</p>
+  </div>
+</section>
+
+<!-- ===================== SIGN UP ===================== -->
+<section id="signup">
+  <div class="wrap">
+    <span class="eyebrow">Audience Building</span>
+    <h2>Getting people to sign up</h2>
+    <p class="lead">Followers are rented; subscribers are owned. The goal of every post is to move someone one step closer to a relationship you control — ideally an email list and a calendar reminder.</p>
+
+    <h3 style="margin-top:24px">The conversion funnel</h3>
+    <div class="card" style="margin-top:8px">
+      <div class="funnel">
+        <div class="frow"><div><b>Discover</b><br><span class="muted" style="font-size:12px">Reels, Shorts, LI posts</span></div><div class="fbar" style="background:var(--blue);width:100%">A clip stops the scroll</div></div>
+        <div class="frow"><div><b>Follow</b><br><span class="muted" style="font-size:12px">Platform follow + notifications</span></div><div class="fbar" style="background:var(--gold);width:82%">They turn on the bell</div></div>
+        <div class="frow"><div><b>Show up live</b><br><span class="muted" style="font-size:12px">Noon, the appointment</span></div><div class="fbar" style="background:var(--crimson);width:62%">They watch at noon</div></div>
+        <div class="frow"><div><b>Sign up</b><br><span class="muted" style="font-size:12px">Email list / newsletter</span></div><div class="fbar" style="background:var(--good);width:42%">You now own the relationship</div></div>
+        <div class="frow"><div><b>Member</b><br><span class="muted" style="font-size:12px">Paid tier / community</span></div><div class="fbar" style="background:var(--ink);width:24%">They pay to go deeper</div></div>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card"><h3>The offer</h3><p class="muted">Give a reason to hand over an email beyond "newsletter." Lead with a tangible: <b>"The Noon Note"</b> — a 60-second written version of each day's read, in your inbox by 12:30, plus first dibs on live Q&A.</p></div>
+      <div class="card"><h3>The mechanics</h3><ul class="clean"><li>One simple landing page (name + email)</li><li>Link in every bio, pinned comment, and clip end-card</li><li>Verbal CTA in the segment's close, every day</li><li>Auto-welcome email that sets the noon habit</li></ul></div>
+      <div class="card"><h3>The nudges</h3><ul class="clean"><li>Calendar-add link ("📅 Add noon to your calendar")</li><li>Notification asks baked into Stories</li><li>Weekly "if you missed it" recap email to re-activate</li><li>Refer-a-friend unlock for the Q&A tier</li></ul></div>
+    </div>
+
+    <h3 style="margin-top:30px">Sign-up tactics by platform</h3>
+    <table class="stack">
+      <tr><th>Platform</th><th>Primary CTA</th><th>How they sign up</th></tr>
+      <tr><td><b>LinkedIn</b></td><td>"Get the Noon Note" link in posts + featured section</td><td>Newsletter (native LI newsletter as a feeder) → landing page for email</td></tr>
+      <tr><td><b>Instagram</b></td><td>Link in bio + "Sign up" Story sticker + clip end-cards</td><td>Link-in-bio page → email capture; DM auto-reply with the link on a keyword</td></tr>
+      <tr><td><b>YouTube</b></td><td>Pinned comment, end screen, description link, verbal close</td><td>Description / pinned-comment link → landing page; Channel membership for paid tier</td></tr>
+    </table>
+
+    <blockquote>Target for the first 90 days: convert the audience habit (showing up at noon) into <b>owned contacts</b> (email) and a small <b>paying core</b> (members). Everything else is vanity.</blockquote>
+  </div>
+</section>
+
+<!-- ===================== GANTT ===================== -->
+<section id="roadmap" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">6-Month Roadmap</span>
+    <h2>Launch &amp; topic Gantt</h2>
+    <p class="lead">June–November 2026. Four tracks: launch &amp; production, marketing, the AI agent build, and the recurring segment-topic clusters that give each week a theme. Filter by track below; hover any bar for detail.</p>
+
+    <div class="gantt-tools" id="gtools"></div>
+    <div class="gantt-scroll">
+      <table class="gantt" id="ganttTable"></table>
+    </div>
+    <p class="legend-note">Each column is roughly one week. Topic clusters are seasonal/thematic anchors — the actual daily story is always whatever's biggest that day, but the cluster gives the week a recurring rubric (e.g., a standing "Democracy Watch" Monday).</p>
+  </div>
+</section>
+
+<!-- ===================== AI AGENT ===================== -->
+<section id="agent">
+  <div class="wrap">
+    <span class="eyebrow">Automation</span>
+    <h2>The AI research &amp; posting agent</h2>
+    <p class="lead">A six-times-daily agent that researches the topics you care about online and publishes calibrated posts at 6 AM, 9 AM, 12 PM, 3 PM, 7 PM, and 9 PM — keeping the feed alive around the clock and feeding you the noon story on a plate.</p>
+
+    <h3 style="margin-top:24px">The daily posting clock</h3>
+    <div class="clock">
+      <div class="slot"><div class="hr">6:00<small>AM</small></div><div class="nm">The Brief</div><div class="ds">Overnight wrap + "what to watch today." Sets the agenda.</div></div>
+      <div class="slot"><div class="hr">9:00<small>AM</small></div><div class="nm">The Build</div><div class="ds">Morning developments. Surfaces the candidate story for noon.</div></div>
+      <div class="slot"><div class="hr">12:00<small>PM</small></div><div class="nm">Live Push</div><div class="ds">Promotes the live + posts the noon read recap after.</div></div>
+      <div class="slot"><div class="hr">3:00<small>PM</small></div><div class="nm">The Angle</div><div class="ds">A deeper data point or counterpoint on the day's story.</div></div>
+      <div class="slot"><div class="hr">7:00<small>PM</small></div><div class="nm">Prime Clip</div><div class="ds">The best segment clip, dropped at peak evening attention.</div></div>
+      <div class="slot"><div class="hr">9:00<small>PM</small></div><div class="nm">The Reflect</div><div class="ds">Closing thought / tomorrow tease. Quieter, more personal.</div></div>
+    </div>
+
+    <h3 style="margin-top:34px">How the agent works — the loop</h3>
+    <div class="flow">
+      <div class="step"><div class="n">01</div><b>Watch</b><p>Pull from a curated source set — news APIs, RSS, X/social trends, search — filtered to your beats (politics, race, democracy, culture).</p></div>
+      <div class="step"><div class="n">02</div><b>Rank</b><p>Score stories by relevance to your voice, momentum/recency, and audience fit. Surface the top candidate + 2 backups.</p></div>
+      <div class="step"><div class="n">03</div><b>Draft</b><p>Generate platform-native copy in your voice from a tuned style guide, with source links and a suggested clip/visual.</p></div>
+      <div class="step"><div class="n">04</div><b>Approve</b><p>Route to you (or an editor) via a quick mobile approval — Slack/email/text. One tap to ship, edit, or skip.</p></div>
+      <div class="step"><div class="n">05</div><b>Publish</b><p>Post to the scheduled slot on each platform, then log engagement to retrain ranking and copy over time.</p></div>
+    </div>
+
+    <p class="muted" style="margin-top:14px;font-size:13px"><b>Human-in-the-loop is the default.</b> For a voice-driven, opinion brand, a tap-to-approve gate protects your credibility. Once trust is established, low-risk slots (6 AM brief, 7 PM clip) can graduate to fully automatic.</p>
+
+    <h3 style="margin-top:30px">Suggested technical stack (conceptual)</h3>
+    <table class="stack">
+      <tr><th>Layer</th><th>Job</th><th>Practical options</th></tr>
+      <tr><td><b>Orchestration</b></td><td>Run the 6 daily jobs on a schedule; chain the steps</td><td>Cron / a scheduled-task runner, n8n, Make, or a lightweight Python service</td></tr>
+      <tr><td><b>Research / ingestion</b></td><td>Gather candidate stories on your beats</td><td>News APIs (NewsAPI, GDELT), RSS feeds, X/social listening, web search API</td></tr>
+      <tr><td><b>Reasoning / drafting</b></td><td>Rank stories + write copy in your voice</td><td>An LLM (e.g., Claude) with a tuned system prompt + your style guide as context</td></tr>
+      <tr><td><b>Approval</b></td><td>Get your one-tap yes/no before publishing</td><td>Slack bot, email with action buttons, or SMS (Twilio)</td></tr>
+      <tr><td><b>Publishing</b></td><td>Post to each platform at the right time</td><td>Buffer/Hootsuite/Publer APIs, or native platform APIs (LinkedIn, IG Graph, YouTube)</td></tr>
+      <tr><td><b>Memory / learning</b></td><td>Store what shipped + how it performed</td><td>A simple database (Postgres/Airtable) feeding back engagement to improve ranking</td></tr>
+    </table>
+
+    <h3 style="margin-top:30px">Build roadmap (phased)</h3>
+    <div class="grid g4">
+      <div class="card tight"><span class="pill blue">Phase 1 · Manual-assist</span><p class="muted" style="margin-top:8px">Agent researches + drafts; you copy-paste and post by hand. Validate that the picks and voice are good before automating anything.</p></div>
+      <div class="card tight"><span class="pill gold">Phase 2 · Approve-to-post</span><p class="muted" style="margin-top:8px">Add scheduling + one-tap approval. Agent drafts on the 6-slot clock; you approve from your phone; it publishes.</p></div>
+      <div class="card tight"><span class="pill red">Phase 3 · Multi-platform</span><p class="muted" style="margin-top:8px">Native per-platform formatting, auto-clipping from the live, and engagement logging feeding back into ranking.</p></div>
+      <div class="card tight"><span class="pill green">Phase 4 · Semi-autonomous</span><p class="muted" style="margin-top:8px">Low-risk slots run automatically within guardrails; high-stakes posts still gated. Weekly performance report tunes the model.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:30px">
+      <h3>Guardrails worth hard-coding</h3>
+      <p style="color:#e7ddca">Because this is an opinion brand under your name: <span class="pill">Always cite a source</span> <span class="pill">No posting on breaking tragedy without human OK</span> <span class="pill">Voice-match check before send</span> <span class="pill">Daily volume cap</span> <span class="pill">Easy kill-switch</span> — the agent amplifies your judgment; it never replaces it.</p>
+    </div>
+
+    <p class="disclaimer">This is a working brainstorm and strategy draft for planning purposes — figures, timing, and tooling are starting points to pressure-test, not commitments. Platform APIs and posting-automation policies change often and vary by platform; verify each platform's current automation and live-streaming terms before building. "The Charles Blow Show" and "Lunch Break Live" are treated here as your project concepts.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b style="color:#f6f1e7;font-family:var(--font-d);font-size:16px">Lunch Break Live</b> — Segment Playbook · The Charles Blow Show<br>
+    Concept · Marketing · 6-Month Roadmap · AI Research Agent &nbsp;·&nbsp; Working draft, June 2026
+  </div>
+</footer>
+
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+/* ---------- Copy buttons ---------- */
+document.querySelectorAll('.copybtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const el=document.getElementById(b.dataset.c);
+    const txt=el.innerText;
+    navigator.clipboard.writeText(txt).then(()=>{
+      const t=document.getElementById('toast');t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),1600);
+    });
+  });
+});
+
+/* ---------- Gantt ---------- */
+const WEEKS = 26; // ~6 months
+const months = [
+  {name:'JUN', span:4},{name:'JUL', span:4},{name:'AUG', span:5},
+  {name:'SEP', span:4},{name:'OCT', span:4},{name:'NOV', span:5}
+];
+const tracks = [
+  {id:'launch', name:'Launch & Production', color:'#b51a1a'},
+  {id:'mktg',   name:'Marketing & Growth',  color:'#c9912f'},
+  {id:'agent',  name:'AI Agent Build',      color:'#1f5f8b'},
+  {id:'topics', name:'Topic Clusters',      color:'#2f7d4f'}
+];
+// start week (1-based), end week inclusive
+const tasks = [
+  // Launch & production
+  {tr:'launch', label:'Format design & run-of-show lock', s:1, e:2},
+  {tr:'launch', label:'Kit, set & streaming setup', s:1, e:3},
+  {tr:'launch', label:'Pilot test runs (private)', s:3, e:4},
+  {tr:'launch', label:'★ LAUNCH WEEK (5 episodes)', s:5, e:5},
+  {tr:'launch', label:'Daily live segment (sustain)', s:6, e:26},
+  {tr:'launch', label:'Weekly "best of" recap', s:8, e:26},
+
+  // Marketing
+  {tr:'mktg', label:'Brand assets & landing page', s:1, e:2},
+  {tr:'mktg', label:'Phase 1 · Tease campaign', s:3, e:4},
+  {tr:'mktg', label:'Phase 2 · Reveal + trailer drop', s:4, e:5},
+  {tr:'mktg', label:'Phase 3 · Launch-week blitz', s:5, e:6},
+  {tr:'mktg', label:'Always-on clipping & cross-post', s:6, e:26},
+  {tr:'mktg', label:'Newsletter ("Noon Note") live', s:5, e:26},
+  {tr:'mktg', label:'Membership / paid tier opens', s:12, e:26},
+
+  // AI Agent
+  {tr:'agent', label:'P1 · Research + draft (manual-assist)', s:2, e:5},
+  {tr:'agent', label:'P2 · Approve-to-post + scheduling', s:6, e:10},
+  {tr:'agent', label:'P3 · Multi-platform + auto-clip', s:10, e:16},
+  {tr:'agent', label:'P4 · Semi-autonomous + tuning', s:16, e:26},
+
+  // Topic clusters (thematic anchors)
+  {tr:'topics', label:'Democracy & elections watch', s:5, e:14},
+  {tr:'topics', label:'Race, justice & policy', s:5, e:26},
+  {tr:'topics', label:'Economy & everyday cost', s:7, e:18},
+  {tr:'topics', label:'Culture, media & narrative', s:6, e:22},
+  {tr:'topics', label:'Courts & the law', s:9, e:20},
+  {tr:'topics', label:'Election-season surge', s:18, e:26},
+  {tr:'topics', label:'Year-end "what it all meant"', s:24, e:26}
+];
+
+function buildGantt(filter){
+  const t=document.getElementById('ganttTable');
+  // header
+  let head='<thead><tr><th class="glabel" style="background:var(--ink)">Workstream</th>';
+  months.forEach(m=>{head+=`<th class="mname" colspan="${m.span}">${m.name}</th>`;});
+  head+='</tr><tr><th class="glabel" style="background:var(--ink)"></th>';
+  for(let w=1;w<=WEEKS;w++){head+=`<th class="wk-tick">W${w}</th>`;}
+  head+='</tr></thead>';
+
+  let body='<tbody>';
+  tracks.forEach(tr=>{
+    if(filter!=='all' && filter!==tr.id) return;
+    body+=`<tr><td class="gtrack-h" colspan="${WEEKS+1}">${tr.name}</td></tr>`;
+    tasks.filter(x=>x.tr===tr.id).forEach(x=>{
+      body+=`<tr><td class="glabel">${x.label}</td>`;
+      body+=`<td class="gcell" colspan="${WEEKS}" style="padding:0">`;
+      body+=`<div style="position:relative;height:34px">`;
+      const leftPct=((x.s-1)/WEEKS)*100;
+      const widPct=((x.e-x.s+1)/WEEKS)*100;
+      const dur=x.e-x.s+1;
+      body+=`<div class="gbar" title="${x.label} · Week ${x.s}–${x.e} (${dur} wk${dur>1?'s':''})" style="left:${leftPct}%;width:calc(${widPct}% - 4px);background:${tr.color}">${dur>=2?x.label.replace('★ ',''):''}</div>`;
+      body+=`</div></td></tr>`;
+    });
+  });
+  body+='</tbody>';
+  t.innerHTML=head+body;
+}
+
+function buildTools(){
+  const c=document.getElementById('gtools');
+  let h=`<button class="gbtn active" data-f="all" style="background:var(--ink);color:#fff">All tracks</button>`;
+  tracks.forEach(tr=>{
+    h+=`<button class="gbtn" data-f="${tr.id}"><span class="dot" style="background:${tr.color}"></span>${tr.name}</button>`;
+  });
+  c.innerHTML=h;
+  c.querySelectorAll('.gbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      c.querySelectorAll('.gbtn').forEach(x=>{x.classList.remove('active');x.style.background='#fff';x.style.color='var(--slate)';});
+      b.classList.add('active');
+      const f=b.dataset.f;
+      if(f==='all'){b.style.background='var(--ink)';b.style.color='#fff';}
+      else{const tr=tracks.find(t=>t.id===f);b.style.background=tr.color;b.style.color='#fff';}
+      buildGantt(f);
+    });
+  });
+}
+buildTools();
+buildGantt('all');
+</script>
+</body>
+</html>

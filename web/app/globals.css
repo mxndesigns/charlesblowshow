@@ -1,19 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — editorial, authoritative, warm */
-  --color-ink: #0c0d10; /* near-black background */
-  --color-ink-soft: #14161c; /* raised panels */
-  --color-ink-line: #262a33; /* hairline borders */
-  --color-cream: #f4efe4; /* warm off-white text */
-  --color-muted: #9b968b; /* secondary text */
-  --color-gold: #d8a949; /* primary accent */
-  --color-gold-soft: #b78a33; /* accent hover */
-  --color-ember: #c8432c; /* "live" red */
+  /* ── Brand palette (see docs/10-brand-guidelines.md) ── */
+  --color-paper: #fbfaf6; /* warm-white canvas */
+  --color-surface: #ffffff; /* cards / panels */
+  --color-ink: #14161d; /* primary text, dark surfaces, nav */
+  --color-ink-soft: #2a2d36; /* secondary dark */
+  --color-muted: #6c7077; /* metadata / author • date */
+  --color-line: #e7e3d9; /* hairline borders */
+  --color-azure: #0090cc; /* primary accent — links, buttons, eyebrows */
+  --color-azure-bright: #00b2f4; /* brand signature pop — live dot, focus, rules */
+  --color-azure-dark: #0a6a94; /* accent hover / pressed */
+  --color-azure-tint: #e1f3fd; /* soft accent bg */
 
-  /* Typography */
+  /* ── Typography ── */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, "Times New Roman",
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, "Times New Roman",
     serif;
 }
 
@@ -22,17 +24,263 @@ html {
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-cream);
+  background: var(--color-paper);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--color-gold);
-  color: var(--color-ink);
+  background: var(--color-azure);
+  color: #fff;
 }
 
-/* Subtle pulsing dot for the LIVE badge */
+/* Editorial duotone media blocks (intentional placeholders for photography) */
+.media-azure {
+  background: linear-gradient(135deg, #00b2f4 0%, #0077b6 55%, #14161d 100%);
+}
+.media-ink {
+  background: linear-gradient(135deg, #2a2d36 0%, #14161d 70%);
+}
+.media-azure-soft {
+  background: linear-gradient(135deg, #7fd8fb 0%, #00b2f4 58%, #024a70 100%);
+}
+
+/* Rendered-markdown typography (brand token reference, converted docs) */
+.prose-cbs {
+  color: var(--color-ink-soft);
+  line-height: 1.7;
+  font-size: 0.975rem;
+}
+.prose-cbs > :first-child {
+  margin-top: 0;
+}
+.prose-cbs h1,
+.prose-cbs h2,
+.prose-cbs h3,
+.prose-cbs h4 {
+  font-family: var(--font-serif);
+  color: var(--color-ink);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.prose-cbs h1 {
+  font-size: 1.9rem;
+  margin: 0 0 1rem;
+}
+.prose-cbs h2 {
+  font-size: 1.4rem;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--color-line);
+}
+.prose-cbs h3 {
+  font-size: 1.12rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.prose-cbs p {
+  margin: 0.85rem 0;
+}
+.prose-cbs a {
+  color: var(--color-azure);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-cbs ul,
+.prose-cbs ol {
+  margin: 0.85rem 0;
+  padding-left: 1.4rem;
+}
+.prose-cbs li {
+  margin: 0.3rem 0;
+}
+.prose-cbs ul {
+  list-style: disc;
+}
+.prose-cbs ol {
+  list-style: decimal;
+}
+.prose-cbs strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.prose-cbs code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--color-azure-tint);
+  color: var(--color-azure-dark);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+.prose-cbs pre {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.prose-cbs pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+.prose-cbs blockquote {
+  border-left: 3px solid var(--color-azure-bright);
+  margin: 1rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: var(--color-muted);
+  font-style: italic;
+}
+.prose-cbs table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.prose-cbs th,
+.prose-cbs td {
+  border: 1px solid var(--color-line);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose-cbs th {
+  background: var(--color-paper);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.prose-cbs hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 2rem 0;
+}
+
+/* Animated logo bug overlaid on the reference video (bottom-right) */
+@keyframes logo-bug-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes logo-word-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes logo-bug-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 178, 244, 0);
+  }
+  50% {
+    box-shadow: 0 0 14px 2px rgba(0, 178, 244, 0.5);
+  }
+}
+.logo-bug {
+  animation: logo-bug-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.logo-bug-word {
+  animation: logo-word-in 0.7s ease 0.5s both;
+}
+.logo-bug-glow {
+  animation: logo-bug-glow 3.2s ease-in-out 1.1s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-bug,
+  .logo-bug-word,
+  .logo-bug-glow {
+    animation: none;
+  }
+  .logo-bug-word {
+    opacity: 1;
+    clip-path: none;
+  }
+}
+
+/* Animated social-post previews (Launch Posts tab) */
+@keyframes post-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes post-play {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+}
+@keyframes post-heart {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.35);
+  }
+}
+@keyframes post-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes post-progress {
+  0% {
+    width: 6%;
+  }
+  100% {
+    width: 82%;
+  }
+}
+.post-pop {
+  animation: post-pop 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.post-play {
+  animation: post-play 2s ease-in-out infinite;
+}
+.post-heart {
+  animation: post-heart 2.4s ease-in-out infinite;
+}
+.post-ring {
+  animation: post-ring 6s linear infinite;
+  transform-origin: center;
+}
+.post-progress {
+  animation: post-progress 4s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .post-pop,
+  .post-play,
+  .post-heart,
+  .post-ring,
+  .post-progress {
+    animation: none;
+  }
+  .post-progress {
+    width: 60%;
+  }
+}
+
+/* Pulsing dot for the LIVE badge */
 @keyframes live-pulse {
   0%,
   100% {
@@ -40,11 +288,10 @@ body {
     transform: scale(1);
   }
   50% {
-    opacity: 0.4;
-    transform: scale(0.8);
+    opacity: 0.35;
+    transform: scale(0.78);
   }
 }
-
 .live-dot {
-  animation: live-pulse 1.6s ease-in-out infinite;
+  animation: live-pulse 1.5s ease-in-out infinite;
 }

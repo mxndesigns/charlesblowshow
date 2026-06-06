@@ -39,6 +39,8 @@ Charles Blow already has authority (NYT columnist, MSNBC analyst, best-selling a
 
 **Brand attributes:** *Incisive · Principled · Warm · Unflinching · Literate.*
 
+**Visual identity:** editorial/magazine direction — a light **paper** canvas, near-black **ink**, a single warm **ember** accent, a high-contrast serif (Newsreader) for headlines + a clean sans (Inter) for UI. Full system in [10-brand-guidelines.md](./10-brand-guidelines.md); implemented in `web/`.
+
 **What we are NOT:** not a hot-take rage channel, not neutral both-sides theater, not chasing virality at the cost of credibility.
 
 ---

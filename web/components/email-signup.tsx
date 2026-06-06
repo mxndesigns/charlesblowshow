@@ -6,14 +6,17 @@ type Status = "idle" | "loading" | "success" | "error";
 
 export function EmailSignup({
   id,
-  compact = false,
+  variant = "light",
 }: {
   id?: string;
-  compact?: boolean;
+  /** "light" on paper sections · "dark" on ink sections */
+  variant?: "light" | "dark";
 }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+
+  const onDark = variant === "dark";
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,11 +51,17 @@ export function EmailSignup({
     return (
       <div
         id={id}
-        className="rounded-xl border border-gold/40 bg-gold/10 px-5 py-4 text-cream"
+        className={`rounded-xl border px-5 py-4 ${
+          onDark
+            ? "border-azure/40 bg-azure/15 text-paper"
+            : "border-azure/40 bg-azure-tint text-ink"
+        }`}
         role="status"
         aria-live="polite"
       >
-        <p className="font-serif text-lg">✓ {message}</p>
+        <p className="font-serif text-lg">
+          <span className="text-azure">✓</span> {message}
+        </p>
       </div>
     );
   }
@@ -61,11 +70,7 @@ export function EmailSignup({
     <form
       id={id}
       onSubmit={handleSubmit}
-      className={
-        compact
-          ? "flex flex-col gap-2 sm:flex-row"
-          : "flex flex-col gap-3 sm:flex-row"
-      }
+      className="flex flex-col gap-3 sm:flex-row"
       noValidate
     >
       <label htmlFor={`${id}-email`} className="sr-only">
@@ -81,19 +86,26 @@ export function EmailSignup({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         disabled={status === "loading"}
-        className="w-full flex-1 rounded-lg border border-ink-line bg-ink-soft px-4 py-3 text-cream placeholder:text-muted outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30 disabled:opacity-60"
+        className={`w-full flex-1 rounded-lg border px-4 py-3 outline-none transition focus:border-azure focus:ring-2 focus:ring-azure/25 disabled:opacity-60 ${
+          onDark
+            ? "border-white/15 bg-white/5 text-paper placeholder:text-paper/50"
+            : "border-line bg-surface text-ink placeholder:text-muted"
+        }`}
         aria-invalid={status === "error"}
         aria-describedby={message ? `${id}-msg` : undefined}
       />
       <button
         type="submit"
         disabled={status === "loading"}
-        className="shrink-0 rounded-lg bg-gold px-6 py-3 font-semibold text-ink transition hover:bg-gold-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold disabled:opacity-60"
+        className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-azure px-6 py-3 font-semibold text-white transition hover:bg-azure-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-azure disabled:opacity-60"
       >
         {status === "loading" ? "Joining…" : "Get the dispatch"}
+        <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+          →
+        </span>
       </button>
       {message && status === "error" && (
-        <p id={`${id}-msg`} className="text-sm text-ember sm:basis-full">
+        <p id={`${id}-msg`} className="text-sm text-azure sm:basis-full">
           {message}
         </p>
       )}
