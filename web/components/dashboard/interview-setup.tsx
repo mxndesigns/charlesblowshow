@@ -1,5 +1,82 @@
+import Image from "next/image";
 import { Eyebrow, SectionHeading } from "./ui";
 import { Monogram } from "@/components/logo";
+
+interface RefShot {
+  src: string;
+  title: string;
+  caption: string;
+}
+interface RefGroup {
+  heading: string;
+  note: string;
+  shots: RefShot[];
+}
+
+const REF = "/content/setup-references";
+
+const REFERENCE_GROUPS: RefGroup[] = [
+  {
+    heading: "Solo — the daily read",
+    note: "The everyday format: one host, one story. Frame wide with room to breathe.",
+    shots: [
+      {
+        src: `${REF}/WideShot_Solo_StraightOn.png`,
+        title: "Straight-on wide",
+        caption:
+          "Host centered to the lens, mic in frame, warm practicals and an LED bar behind for depth and separation from the wall.",
+      },
+      {
+        src: `${REF}/Angled_Wide.png`,
+        title: "Angled wide",
+        caption:
+          "Host on the third, body angled in, shallow depth of field — leaves clean negative space for floating graphics.",
+      },
+    ],
+  },
+  {
+    heading: "Guest — The Evening Show",
+    note: "The interview format: host + guest across a round table, twin mics, cut between angles.",
+    shots: [
+      {
+        src: `${REF}/GuestSetup_WideShot.png`,
+        title: "Two-shot establishing",
+        caption:
+          "Host and guest across a round table, twin boom mics, RGB wall wash. The wide that sets the room.",
+      },
+      {
+        src: `${REF}/Guest_OverheadShot.png`,
+        title: "Over-the-shoulder · guest",
+        caption:
+          "Cross-table angle favoring the guest — the listening reverse for their answers.",
+      },
+      {
+        src: `${REF}/Guest_OverheadShot_Angled.png`,
+        title: "Over-the-shoulder · host",
+        caption:
+          "Reverse favoring the host, angled — cut between these two for conversational rhythm.",
+      },
+    ],
+  },
+  {
+    heading: "Production & streaming",
+    note: "How it's captured and pushed live.",
+    shots: [
+      {
+        src: `${REF}/Streamyards_Callout.png`,
+        title: "StreamYard layout",
+        caption:
+          "How the live two-up is composed and streamed — the guest/multi-cam control surface that runs the show.",
+      },
+      {
+        src: `${REF}/BTS-Shots.png`,
+        title: "Behind the scenes",
+        caption:
+          "Camera framing and exposure dialed in on the rig — the cinematic look set at capture, not in post.",
+      },
+    ],
+  },
+];
 
 /**
  * Interview / production setup guidance for the show — rendered natively in the
@@ -146,10 +223,58 @@ export function InterviewSetup() {
         </div>
         <figcaption className="px-5 py-3 text-sm text-paper/60">
           A motion reference for the on-camera look — wide framing with room for
-          floating graphics. The diagrams below break down how to frame, light,
-          and place callouts to match it.
+          floating graphics. The shots below break down the setup; the diagrams
+          further down show how to frame, light, and place callouts to match it.
         </figcaption>
       </figure>
+
+      {/* Reference shots */}
+      <section className="space-y-6">
+        <div>
+          <Eyebrow className="text-azure">Reference Shots</Eyebrow>
+          <SectionHeading className="mt-1">What the setup looks like</SectionHeading>
+          <p className="mt-2 max-w-3xl text-muted">
+            Real-world references for the two formats and how they&apos;re shot —
+            the look to aim for across solo days and guest nights.
+          </p>
+        </div>
+
+        {REFERENCE_GROUPS.map((group) => (
+          <div key={group.heading} className="space-y-3">
+            <div>
+              <h3 className="font-serif text-lg font-semibold text-ink">{group.heading}</h3>
+              <p className="text-sm text-muted">{group.note}</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {group.shots.map((shot) => (
+                <a
+                  key={shot.src}
+                  href={shot.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition hover:border-azure/60 hover:shadow-sm"
+                >
+                  <div className="relative aspect-video overflow-hidden bg-ink">
+                    <Image
+                      src={shot.src}
+                      alt={shot.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-4">
+                    <p className="text-sm font-semibold text-ink transition group-hover:text-azure">
+                      {shot.title}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted">{shot.caption}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
 
       {OPTIONS.map((opt) => (
         <article key={opt.n} className="overflow-hidden rounded-2xl border border-line bg-surface">
