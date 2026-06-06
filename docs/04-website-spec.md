@@ -90,8 +90,8 @@ Greenfield, fast to ship, scales with the audience. Optimized for SEO, performan
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| **Framework** | **Next.js (App Router)** on **Vercel** | SSR/ISR for SEO + speed; great DX; scales to zero cost early |
-| **Styling/UI** | Tailwind CSS + **shadcn/ui** | Fast, consistent, accessible component system |
+| **Framework** | **Next.js 16 (App Router)** on **Vercel** | SSR/ISR for SEO + speed; great DX; scales to zero cost early |
+| **Styling/UI** | **Tailwind v4** with brand design tokens (Newsreader + Inter; ink/paper/ember) | Cohesive editorial system per [10-brand-guidelines.md](./10-brand-guidelines.md); add a component library if/when complexity grows |
 | **Content/CMS** | **Sanity** or **Contentful** (headless) for episodes/guests; **Substack** as source for columns (RSS/API) | Editors update without code; reuse Substack writing |
 | **Email/membership** | **Substack** v1 (fastest), migrate to **Beehiiv/Ghost + Stripe** if more control needed | Don't rebuild what Substack gives free on day one |
 | **Video/audio** | YouTube embeds; podcast via Transistor/Captivate RSS | No video-hosting cost; distribution built in |

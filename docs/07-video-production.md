@@ -57,14 +57,17 @@ Prioritize **audio first** — viewers forgive mediocre video, not bad audio.
 
 ## Branded production assets (build once, use daily)
 
-These make the show instantly recognizable and are required before launch:
+These make the show instantly recognizable and are required before launch. All
+follow the brand system in [10-brand-guidelines.md](./10-brand-guidelines.md):
+**ink** surfaces, **paper** text, a single **ember** accent, Newsreader serif
+for titles, Inter for labels, and the **CB** monogram bug.
 
-- **Animated open/close** for each segment (distinct but related).
-- **Lower-thirds** (host, guest, segment-name bug).
-- **Title cards** for named segments (The Throughline, Devil's Advocate, The Receipts, What Now?).
-- **Clip template** — branded captions, vertical safe-area, intro hook frame, end-card "subscribe."
-- **Thumbnail template** — high-contrast, Blow's face + guest + tension phrase.
-- **Lower-third + chyron style guide** so every editor outputs consistent assets.
+- **Animated open/close** for each segment (distinct but related) — ink field, ember rule, CB monogram.
+- **Lower-thirds** — ink bar, paper text, ember underline rule + CB bug (host, guest, segment name).
+- **Title cards** for named segments (The Throughline, Devil's Advocate, The Receipts, What Now?) — serif, ember keyword highlight.
+- **Clip template** — paper/ink caption band, ember keyword highlight, vertical safe-area, CB end-card "subscribe."
+- **Thumbnail template** — high-contrast: Blow's face + ember title bar + serif tension phrase.
+- **Style guide** — use the palette tokens and the monogram from the brand doc so every editor outputs consistent assets.
 
 ---
 

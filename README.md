@@ -27,6 +27,9 @@ A host-led, **daily two-segment** show — ☀️ *Lunch Break Live* (10 min, li
 | [05-guest-roadmap.md](./docs/05-guest-roadmap.md) | Incremental "ladder" of political guests + booking strategy |
 | [06-roadmap-and-metrics.md](./docs/06-roadmap-and-metrics.md) | The 3-rung success ladder, phased launch roadmap, KPIs, OKRs, team & budget |
 | [07-video-production.md](./docs/07-video-production.md) | Production plan for both daily segments — lean→scaled kit, live pipeline, clip engine, roles |
+| [08-daily-production-runbook.md](./docs/08-daily-production-runbook.md) | The daily operating manual + a fill-in **call sheet** for both segments |
+| [09-editorial-calendar.md](./docs/09-editorial-calendar.md) | Week-by-week calendar mapping segments + clips + column across all 4 platforms |
+| [10-brand-guidelines.md](./docs/10-brand-guidelines.md) | Visual identity — logo, ink/paper/ember palette, Newsreader + Inter type, components, voice |
 
 ---
 

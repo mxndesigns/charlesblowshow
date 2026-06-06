@@ -1,0 +1,15 @@
+# Editorial Gravity — a logo design philosophy
+
+*A visual movement for marks that carry the weight of the printed page into the live, scrolling present.*
+
+**Editorial Gravity** treats a logo not as decoration but as a byline — the small, deliberate signature a serious writer earns. Its center of mass is low and certain. Forms sit on a baseline as if set in lead, never floating, never shouting. The eye should feel that every curve and counter was cut by hand, the product of deep expertise, and refined until nothing remained to remove. Restraint here is not absence; it is the discipline of a master who knows that one warm gesture, placed precisely, says more than a dozen flourishes.
+
+The space is **paper, not screen**. A warm off-white field breathes around each mark with the generosity of a wide magazine margin. Negative space is the loudest material in the system: it frames, it isolates, it confers authority. Marks are given room the way a columnist's name is given room at the head of a page — alone, unhurried, impossible to mistake. Composition follows a strict editorial grid, every element aligned to an invisible measure, every interval the result of painstaking attention.
+
+**Color is rationed like ink.** Near-black does the speaking; a single warm ember does the underlining. The ember never fills, never floods — it is a struck match, a rule beneath a name, a live signal in the dark. This is the chromatic equivalent of a thumb pressed once on the page. Where dark fields appear they invert the order — pale type on ink — but the law holds: one accent, deployed with the patience of someone at the very top of their craft.
+
+**Type is the architecture.** A high-contrast serif carries the voice — thick and thin strokes modulating like a confident hand, lowercase forms ending on a quiet period, the signature device of editorial certainty. A clean grotesque sans handles the functional whisper: spaced uppercase labels, metadata set small, the machinery that lets the serif sing. The two never compete. Scale carries meaning — a monumental monogram beside a hair-fine eyebrow — and the rhythm between them is tuned, retuned, and tuned again until it reads as inevitable.
+
+The monogram itself is the soul: two letters bound so they read as one breath, set inside a form with the solidity of a printer's block. It should feel **meticulously crafted** — kerned to the half-pixel, its underline rule the exact warmth of a fresh strike of ember, its proportions the kind that only reveal their care on the second, slower look. A specimen, not a sketch.
+
+Presented together, the marks form a **type-specimen sheet** — clinical reference numbers, hairline registration rules, measured captions — so the collection reads as an instrument of a discipline rather than a mood board. The viewer should sense an archive: that someone studied this identity the way a scholar studies a hand, mapped its variants, and laid them out with reverence. The result must look like it took countless hours, because it should. Editorial Gravity is the conviction that a name, set with enough care, becomes a place a reader trusts.
