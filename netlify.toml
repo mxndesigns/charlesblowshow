@@ -1,0 +1,14 @@
+# Netlify build config. The Next.js app lives in web/, not the repo root —
+# without `base`, Netlify builds from root and finds no app to deploy.
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"            # relative to base → web/.next
+
+[build.environment]
+  NODE_VERSION = "20"          # Next 16 requires Node >= 20
+
+# Official Next.js runtime (SSR, route handlers, image optimization, proxy.ts).
+# Netlify auto-installs this when it detects Next; listed here to be explicit.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
